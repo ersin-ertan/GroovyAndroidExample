@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-apply plugin: 'groovyx.grooid.groovy-android'
+apply plugin: 'groovyx.grooid.groovy-android' // groovy plugin
 
 android {
     compileSdkVersion 21
@@ -24,10 +24,17 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_7 // tried _8 but did not work
         targetCompatibility JavaVersion.VERSION_1_7
     }
+
+    packagingOptions{
+        exclude 'META-INF/NOTICE.txt' // requested by gradle
+    }
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:22.0.0'
-    compile 'org.codehaus.groovy:groovy:2.4.3:grooid'
+    compile 'org.codehaus.groovy:groovy:2.4.3:grooid' // groovy
+    compile 'org.codehaus.gpars:gpars:1.2.1' // gPars parallel
+    compile 'org.codehaus.jsr166-mirror:jsr166y:1.7.0' // transitive dependency for fork/join lib
+
 }
