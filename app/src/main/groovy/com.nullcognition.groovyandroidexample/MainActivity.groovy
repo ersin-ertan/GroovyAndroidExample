@@ -1,5 +1,4 @@
 package com.nullcognition.groovyandroidexample
-
 import android.os.Bundle
 import android.support.v7.app.ActionBarActivity
 import android.util.Log
@@ -12,7 +11,7 @@ import groovyx.gpars.actor.DynamicDispatchActor
 import jsr166y.ForkJoinPool
 
 import java.util.concurrent.atomic.AtomicInteger
-
+// @CompileStatic // when using this annotation, you will get errors that will force static type checking like the mult and it.contains method
 public class MainActivity extends ActionBarActivity {
 
 
@@ -40,7 +39,7 @@ public class MainActivity extends ActionBarActivity {
         // multiply asynchronously
         GParsPool.withPool {
             final List mult = [1, 2, 3, 4, 5].collectParallel { it * 2 }
-            Log.e("tag", mult.toString()) // mul and sum variables defined in inner scope
+            Log.e("tag", mul.toString()) // mul and sum variables defined in inner scope
         }
 
         // check all elements in collection for criteria
@@ -62,8 +61,10 @@ public class MainActivity extends ActionBarActivity {
 
         def animals = ['dog', 'ant', 'cat', 'whale']
         ParallelEnhancer.enhanceInstance animals
-        Log.e("tag", animals.anyParallel {it ==~ /ant/} ? 'found ant' : 'not found')
-        Log.e("tag", animals.anyParallel {it.contains('a')} ? 'all have the letter a' : 'not all have the letter a')
+        String st = animals.anyParallel {it ==~ /ant/} ? 'found ant' : 'not found'
+        Log.e("tag", st)
+        String str = animals.anyParallel {it.contains('a')} ? 'all have the letter a' : 'not all have the letter a'
+        Log.e("tag",str )
 
         // for exceptions for passed in closures, the first exception gets rethrown from the xxxParallel method and the algo stops
 
